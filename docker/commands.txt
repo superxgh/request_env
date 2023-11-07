@@ -1,0 +1,1 @@
+ docker run --name request-nginx -v C:\Users\xsiwa\x_space\projects\request\request_env\web_contents:/usr/share/nginx/html:ro -d nginx
