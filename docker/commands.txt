@@ -1,5 +1,19 @@
 1. Create nginx
-$ docker run --name request-nginx -p 8090:80 -v C:\Users\xsiwa\x_space\projects\request\request_env\web_contents:/usr/share/nginx/html:ro -d nginx
+$ docker run --name request-nginx -p 8090:80 -v C:\Users\xsiwa\x_spec\request\request_env\web_contents:/usr/share/nginx/html:ro -d nginx
 
 2. Create postgres
 $ docker run --restart=always -d  --name request_db -e POSTGRES_USER=root -e POSTGRES_PASSWORD=20002000 -e PGDATA=/var/lib/postgresql/data/pgdata -v C:\Users\xsiwa\x_space\projects\request\request_env\postgres_data:/var/lib/postgresql/data  -p 5433:5432  postgres
+
+3. Create cloudflared tunnel
+    
+    $ docker run -v $PWD/cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflared login
+    
+    $ docker run -v $PWD/cloudflared:/etc/cloudflared cloudflare/cloudflared tunnel create  reqendpoint.nrokawis.com
+
+    $ docker run -v $PWD/cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflared tunnel route dns ab8aba21-d72d-4ecc-a9eb-f760f9591315 reqendpoint.nrokawis.com
+
+    > creatae config.yml in /cloudflared
+   
+    $ docker run -v $PWD/cloudflared:/home/nonroot/.cloudflared -e TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem -e TUNNEL_EDGE_IP_VERSION=auto cloudflare/cloudflared tunnel --url http://localhost:8090 run  ab8aba21-d72d-4ecc-a9eb-f760f9591315
+
+$ docker compose up -d

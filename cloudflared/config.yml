@@ -1,0 +1,7 @@
+tunnel: ab8aba21-d72d-4ecc-a9eb-f760f9591315
+credentials-file: /etc/cloudflared/ab8aba21-d72d-4ecc-a9eb-f760f9591315.json
+
+ingress:
+  - hostname: reqendpoint.nrokawis.com 
+    service: http://localhost:8090
+  - service: http_status:404

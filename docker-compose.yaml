@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+    cloudflared:
+        image: cloudflare/cloudflared
+        restart: always
+        environment:
+        - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
+        - TUNNEL_EDGE_IP_VERSION=auto #use IPv4 and IPv6
+        volumes:
+        - ./cloudflared:/etc/cloudflared
+        command: tunnel run ab8aba21-d72d-4ecc-a9eb-f760f9591315
