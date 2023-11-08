@@ -1,5 +1,5 @@
 1. Create nginx
-$ docker run --name request-nginx -p 8090:80 -v C:\Users\xsiwa\x_spec\request\request_env\web_contents:/usr/share/nginx/html:ro -d nginx
+$ docker run --name request-nginx -p 8090:80 -v C:\Users\xsiwa\x_space\request\request_env\web_contents:/usr/share/nginx/html:ro -d nginx
 
 2. Create postgres
 $ docker run --restart=always -d  --name request_db -e POSTGRES_USER=root -e POSTGRES_PASSWORD=20002000 -e PGDATA=/var/lib/postgresql/data/pgdata -v C:\Users\xsiwa\x_space\projects\request\request_env\postgres_data:/var/lib/postgresql/data  -p 5433:5432  postgres
