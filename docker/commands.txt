@@ -14,6 +14,4 @@ $ docker run --restart=always -d  --name request_db -e POSTGRES_USER=root -e POS
 
     > creatae config.yml in /cloudflared
    
-    $ docker run -v $PWD/cloudflared:/home/nonroot/.cloudflared -e TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem -e TUNNEL_EDGE_IP_VERSION=auto cloudflare/cloudflared tunnel --url http://localhost:8090 run  ab8aba21-d72d-4ecc-a9eb-f760f9591315
-
-$ docker compose up -d
+    $ docker compose up -d
