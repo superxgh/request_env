@@ -1,12 +1,32 @@
 version: '3.1'
 
 services:
-    cloudflared:
+    req_nginx:
+        image: nginx
+        container_name: req_nginx
+        volumes:
+            - ./web_contents:/usr/share/nginx/html:ro
+        ports:
+            - "8090:80"
+        networks:
+            req_network:  
+                ipv4_address: 172.28.0.3  
+    req_cloudflared:
         image: cloudflare/cloudflared
+        container_name: req_cloudflared
+        networks:
+            req_network:  
+                ipv4_address: 172.28.0.4
         restart: always
         environment:
-        - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
-        - TUNNEL_EDGE_IP_VERSION=auto #use IPv4 and IPv6
+            - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
+            - TUNNEL_EDGE_IP_VERSION=auto #use IPv4 and IPv6
         volumes:
-        - ./cloudflared:/etc/cloudflared
+            - ./cloudflared:/etc/cloudflared
         command: tunnel run ab8aba21-d72d-4ecc-a9eb-f760f9591315
+networks:
+  req_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/24
