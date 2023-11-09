@@ -1,5 +1,11 @@
 version: '3.1'
-
+networks:
+    req_network:
+        name: req_network
+        ipam:
+            config:
+                - subnet: 172.28.0.0/16   
+        external: true
 services:
     req_nginx:
         image: nginx
@@ -14,10 +20,10 @@ services:
     req_cloudflared:
         image: cloudflare/cloudflared
         container_name: req_cloudflared
+        network_mode: "host"
         networks:
             req_network:  
                 ipv4_address: 172.28.0.4
-        network_mode: host
         restart: always
         environment:
             - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
@@ -25,9 +31,3 @@ services:
         volumes:
             - ./cloudflared:/etc/cloudflared
         command: tunnel run ab8aba21-d72d-4ecc-a9eb-f760f9591315
-networks:
-  test_network:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
