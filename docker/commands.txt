@@ -18,3 +18,8 @@ $ docker run --restart=always -d  --name request_db -e POSTGRES_USER=root -e POS
 
 4. Create network
     $ docker network create --driver=bridge --subnet=172.28.0.0/16 req_network
+
+Problem
+    address already in use :::8000
+    $ netstat -ano | findstr :8000
+    $ taskkill /PID 22336 /F
