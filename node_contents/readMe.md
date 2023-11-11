@@ -9,3 +9,12 @@
 3. $ npx prisma generate
 4. $ npx prisma migrate dev
      
+## problem
+1. kill process by port
+  windows : 
+    $ netstat -ano | findstr :8000
+    $ taskkill /PID 13508 /F
+
+2. Cannot connect redis
+  [windows]
+  $ choco install redis-64
